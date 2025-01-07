@@ -1,0 +1,20 @@
+{
+  "name": "starlight-connector",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@cmdcode/nostr-emitter": "^2.0.9",
+    "electron": "^33.3.1",
+    "electron-store": "^10.0.0",
+    "node-datachannel": "^0.23.0",
+    "simple-peer": "^9.11.1"
+  }
+}
