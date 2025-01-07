@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/bg.svg') center/cover;
+            color: white;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .digit-input {
+            width: 50px;
+            height: 60px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .digit-input:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .separator {
+            font-size: 24px;
+            line-height: 60px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .emoji {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="emoji"><a href="https://github.com/spaceness" target="_blank">✨</a></span>
+        <div id="input-view">
+            <h1>Enter Starlight Connection ID</h1>
+            <div class="input-container">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <span class="separator">-</span>
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <span class="separator">-</span>
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+                <input type="text" class="digit-input" maxlength="1" pattern="\d*">
+            </div>
+        </div>
+        <div id="loading-view" class="loading">
+            <div class="spinner"></div>
+            <h2>Connecting...</h2>
+        </div>
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('.digit-input');
+        const inputView = document.getElementById('input-view');
+        const loadingView = document.getElementById('loading-view');
+        let code = '';
+
+        inputs.forEach((input, index) => {
+            // Handle input
+            input.addEventListener('input', (e) => {
+                if (e.target.value) {
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                    checkCompletion();
+                }
+            });
+
+            // Handle backspace
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+
+            // Handle paste
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const paste = (e.clipboardData || window.clipboardData).getData('text');
+                const digits = paste.match(/\d/g);
+                if (digits) {
+                    digits.forEach((digit, i) => {
+                        if (index + i < inputs.length) {
+                            inputs[index + i].value = digit;
+                        }
+                    });
+                    checkCompletion();
+                }
+            });
+        });
+
+        function checkCompletion() {
+            code = Array.from(inputs).map(input => input.value).join('');
+            if (code.length === 9) {
+                inputView.style.display = 'none';
+                loadingView.style.display = 'block';
+                // Your callback function here with the code as parameter
+                console.log('Complete code:', code);
+
+                // create a full screen iframe
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://starlight-client.surge.sh/vnc.html?host=nostr.grooveix.com&path=starlight-${code}&port=443&encrypt=1&autoconnect=true`;
+                iframe.style.width = '100vw';
+                iframe.style.height = '100vh';
+                iframe.style.position = 'absolute';
+                iframe.style.top = 0;
+                iframe.style.left = 0;
+                iframe.style.border = 'none';
+                document.body.appendChild(iframe);
+            }
+        }
+    </script>
+</body>
+</html>

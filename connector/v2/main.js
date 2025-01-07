@@ -12,7 +12,6 @@ const __dirname = dirname(__filename)
 const store = new Store()
 let tray = null
 let mainWindow = null
-let serverProcess = null
 let isServerRunning = false
 
 let emitter;
@@ -165,10 +164,11 @@ async function startServer() {
 function stopServer() {
     if (!isServerRunning) return false
 
-    if (serverProcess) {
-        serverProcess.kill()
-        serverProcess = null
-    }
+    emitter.close()
+    peersocket.closeAll()
+
+    emitter = null
+    peersocket = null
 
     isServerRunning = false
 
@@ -181,10 +181,6 @@ function stopServer() {
 
     tray.setToolTip('Starlight Connector - Stopped')
     updateTrayMenu()
-
-    // Clean up
-    emitter.close()
-    peersocket.closeAll()
 
     return true
 }
