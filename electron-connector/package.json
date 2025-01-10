@@ -1,5 +1,5 @@
 {
-  "name": "starlight-connector",
+  "name": "electron-connector",
   "version": "1.0.0",
   "type": "module",
   "main": "main.js",
