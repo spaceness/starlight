@@ -1,16 +1,16 @@
 {
-  "name": "starlight-connector",
-  "version": "1.0.0",
-  "main": "poc.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@cmdcode/nostr-emitter": "^2.0.9",
-    "node-datachannel": "^0.23.0",
-    "simple-peer": "^9.11.1"
-  }
+	"name": "starlight-connector",
+	"version": "1.0.0",
+	"main": "poc.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@cmdcode/nostr-emitter": "^2.0.9",
+		"node-datachannel": "^0.23.0",
+		"simple-peer": "^9.11.1"
+	}
 }

@@ -1,13 +1,13 @@
 {
-    "name": "starlight",
-    "private": true,
-    "scripts": {
-        "check": "biome check . --write"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "1.9"
-    },
-    "packageManager": "pnpm@8.15.6",
+	"name": "starlight",
+	"private": true,
+	"scripts": {
+		"check": "biome check . --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9"
+	},
+	"packageManager": "pnpm@8.15.6",
 	"engines": {
 		"node": ">=18"
 	}
