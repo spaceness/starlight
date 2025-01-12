@@ -7,13 +7,10 @@ const emitter = new NostrEmitter();
 
 // randomly generate a session ID thats 6 digits long
 const sessionId = `starlight-${Math.floor(100000 + Math.random() * 900000)}`;
+const nostrUrl = process.env.NOSTR_URL || "wss://nostr.grooveix.com";
+await emitter.connect(nostrUrl, sessionId);
 
-await emitter.connect("wss://nostr.grooveix.com", sessionId);
-
-console.log(`✨ [Starlight] Connected to nostr.grooveix.com with session ID: ${sessionId}`);
-console.log(
-	`✨ [Starlight] Login to this machine with the following URL: https://starlight-client.surge.sh/vnc.html?host=nostr.grooveix.com&path=${sessionId}&port=443&encrypt=1&autoconnect=true`,
-);
+console.log(`✨ [Starlight] Connected to ${nostrUrl} with session ID: ${sessionId}`);
 
 // send a message to "keepalive" every 10 seconds
 setInterval(() => {
@@ -38,7 +35,7 @@ emitter.on("answer", async (data) => {
 peersocket.onopen = (peer, sessionId) => {
 	console.log(`Peer ${sessionId} connected`);
 	socketMap[sessionId] = new Socket();
-	socketMap[sessionId].connect(5900, "localhost");
+	socketMap[sessionId].connect(5901, "localhost");
 
 	socketMap[sessionId].on("data", (data) => {
 		peer.send(data);
