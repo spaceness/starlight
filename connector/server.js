@@ -1,13 +1,43 @@
 import { Socket } from "node:net";
+import { parseArgs } from "node:util";
 import NostrEmitter from "@cmdcode/nostr-emitter";
 import { PeersocketServer } from "peersocket-server/server.js";
-
+const NOSTR_DEFAULT = "wss://nostr.grooveix.com";
+if (process.argv.includes("--help") || process.argv.includes("-h") || process.argv.includes("help")) {
+	console.log(`
+✨ Starlight by spaceness
+Options:
+ --nostr: URL of the nostr relay to use. Env variable: STARLIGHT_NOSTR. Defaults to ${NOSTR_DEFAULT}
+ --host: Host to connect to. Env variable: STARLIGHT_HOST. Defaults to localhost
+ --port: Port to connect to. Env variable: STARLIGHT_PORT. Defaults to 5901
+`);
+	process.exit(0);
+}
 const peersocket = new PeersocketServer();
 const emitter = new NostrEmitter();
 
+const { values } = parseArgs({
+	options: {
+		nostr: {
+			type: "string",
+		},
+		host: {
+			type: "string",
+		},
+		port: {
+			type: "string",
+		},
+	},
+	args: process.argv,
+	strict: true,
+	allowPositionals: true,
+});
+
 // randomly generate a session ID thats 6 digits long
 const sessionId = `starlight-${Math.floor(100000 + Math.random() * 900000)}`;
-const nostrUrl = process.env.NOSTR_URL || "wss://nostr.grooveix.com";
+const nostrUrl = values.nostr || process.env.STARLIGHT_NOSTR || NOSTR_DEFAULT;
+const host = values.host || process.env.STARLIGHT_HOST || "localhost";
+const port = Number.parseInt(values.port) || process.env.STARLIGHT_PORT || 5901;
 await emitter.connect(nostrUrl, sessionId);
 
 console.log(`✨ [Starlight] Connected to ${nostrUrl} with session ID: ${sessionId}`);
@@ -35,7 +65,7 @@ emitter.on("answer", async (data) => {
 peersocket.onopen = (peer, sessionId) => {
 	console.log(`Peer ${sessionId} connected`);
 	socketMap[sessionId] = new Socket();
-	socketMap[sessionId].connect(5901, "localhost");
+	socketMap[sessionId].connect(port, host);
 
 	socketMap[sessionId].on("data", (data) => {
 		peer.send(data);
