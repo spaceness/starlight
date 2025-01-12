@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import NostrEmitter from "@cmdcode/nostr-emitter";
 import { BrowserWindow, Menu, Tray, app, dialog, ipcMain, shell } from "electron";
 import Store from "electron-store";
-import { PeersocketServer } from "./peersocket-server.js";
+import { PeersocketServer } from "peersocket-server/server.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

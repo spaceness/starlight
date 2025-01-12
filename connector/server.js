@@ -1,6 +1,6 @@
 import { Socket } from "node:net";
 import NostrEmitter from "@cmdcode/nostr-emitter";
-import { PeersocketServer } from "./peersocket-server.js";
+import { PeersocketServer } from "peersocket-server/server.js";
 
 const peersocket = new PeersocketServer();
 const emitter = new NostrEmitter();

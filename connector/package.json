@@ -1,7 +1,8 @@
 {
 	"name": "starlight-connector",
+	"type": "module",
 	"version": "1.0.0",
-	"main": "poc.js",
+	"main": "server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -10,7 +11,6 @@
 	"description": "",
 	"dependencies": {
 		"@cmdcode/nostr-emitter": "^2.0.9",
-		"node-datachannel": "^0.23.0",
-		"simple-peer": "^9.11.1"
+		"peersocket-server": "github:spaceness/peersocket#path:/server"
 	}
 }

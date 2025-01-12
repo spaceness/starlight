@@ -16,8 +16,7 @@
 		"@cmdcode/nostr-emitter": "^2.0.9",
 		"electron-squirrel-startup": "^1.0.1",
 		"electron-store": "^10.0.0",
-		"node-datachannel": "^0.23.0",
-		"simple-peer": "^9.11.1"
+		"peersocket-server": "github:spaceness/peersocket#path:/server"
 	},
 	"devDependencies": {
 		"@electron-forge/cli": "^7.6.0",

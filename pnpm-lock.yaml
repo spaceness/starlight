@@ -89,12 +89,9 @@ importers:
       '@cmdcode/nostr-emitter':
         specifier: ^2.0.9
         version: 2.0.9
-      node-datachannel:
-        specifier: ^0.23.0
-        version: 0.23.0
-      simple-peer:
-        specifier: ^9.11.1
-        version: 9.11.1
+      peersocket-server:
+        specifier: github:spaceness/peersocket#path:/server
+        version: https://codeload.github.com/spaceness/peersocket/tar.gz/0a91ce5b4fdd4155b711f1df542cbb9f7e690b4e#path:/server
 
   electron-connector:
     dependencies:
@@ -107,12 +104,9 @@ importers:
       electron-store:
         specifier: ^10.0.0
         version: 10.0.0
-      node-datachannel:
-        specifier: ^0.23.0
-        version: 0.23.0
-      simple-peer:
-        specifier: ^9.11.1
-        version: 9.11.1
+      peersocket-server:
+        specifier: github:spaceness/peersocket#path:/server
+        version: https://codeload.github.com/spaceness/peersocket/tar.gz/0a91ce5b4fdd4155b711f1df542cbb9f7e690b4e#path:/server
     devDependencies:
       '@electron-forge/cli':
         specifier: ^7.6.0
@@ -2959,6 +2953,10 @@ packages:
   pe-library@1.0.1:
     resolution: {integrity: sha512-nh39Mo1eGWmZS7y+mK/dQIqg7S1lp38DpRxkyoHf0ZcUs/HDc+yyTjuOtTvSMZHmfSLuSQaX945u05Y2Q6UWZg==}
     engines: {node: '>=14', npm: '>=7'}
+
+  peersocket-server@https://codeload.github.com/spaceness/peersocket/tar.gz/0a91ce5b4fdd4155b711f1df542cbb9f7e690b4e#path:/server:
+    resolution: {path: /server, tarball: https://codeload.github.com/spaceness/peersocket/tar.gz/0a91ce5b4fdd4155b711f1df542cbb9f7e690b4e}
+    version: 1.0.0
 
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
@@ -7346,6 +7344,16 @@ snapshots:
       sha.js: 2.4.11
 
   pe-library@1.0.1: {}
+
+  peersocket-server@https://codeload.github.com/spaceness/peersocket/tar.gz/0a91ce5b4fdd4155b711f1df542cbb9f7e690b4e#path:/server:
+    dependencies:
+      '@cmdcode/nostr-emitter': 2.0.9
+      node-datachannel: 0.23.0
+      simple-peer: 9.11.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
 
   pend@1.2.0: {}
 
