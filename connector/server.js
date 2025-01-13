@@ -10,6 +10,7 @@ Options:
  --nostr: URL of the nostr relay to use. Env variable: STARLIGHT_NOSTR. Defaults to ${NOSTR_DEFAULT}
  --host: Host to connect to. Env variable: STARLIGHT_HOST. Defaults to localhost
  --port: Port to connect to. Env variable: STARLIGHT_PORT. Defaults to 5901
+ --id: Session ID to use. Env variable: STARLIGHT_ID. Defaults to starlight-XXXXXX
 `);
 	process.exit(0);
 }
@@ -27,6 +28,9 @@ const { values } = parseArgs({
 		port: {
 			type: "string",
 		},
+		id: {
+			type: "string",
+		},
 	},
 	args: process.argv,
 	strict: true,
@@ -34,7 +38,7 @@ const { values } = parseArgs({
 });
 
 // randomly generate a session ID thats 6 digits long
-const sessionId = `starlight-${Math.floor(100000 + Math.random() * 900000)}`;
+const sessionId = values.id || process.env.STARLIGHT_ID || `starlight-${Math.floor(100000 + Math.random() * 900000)}`;
 const nostrUrl = values.nostr || process.env.STARLIGHT_NOSTR || NOSTR_DEFAULT;
 const host = values.host || process.env.STARLIGHT_HOST || "localhost";
 const port = Number.parseInt(values.port) || Number.parseInt(process.env.STARLIGHT_PORT) || 5901;
