@@ -3,18 +3,14 @@
   "version": "1.5.0",
   "description": "An HTML5 VNC client",
   "browser": "lib/rfb",
-  "directories": {
-    "lib": "lib",
-    "doc": "docs",
-    "test": "tests"
-  },
   "files": [
-    "lib",
     "AUTHORS",
     "VERSION",
     "docs/API.md",
     "docs/LIBRARY.md",
-    "docs/LICENSE*"
+    "docs/LICENSE*",
+    "core/**",
+    "vendor/**"
   ],
   "scripts": {
     "lint": "eslint app core po/po2js po/xgettext-html tests utils",
