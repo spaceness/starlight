@@ -37,7 +37,7 @@ const { values } = parseArgs({
 const sessionId = `starlight-${Math.floor(100000 + Math.random() * 900000)}`;
 const nostrUrl = values.nostr || process.env.STARLIGHT_NOSTR || NOSTR_DEFAULT;
 const host = values.host || process.env.STARLIGHT_HOST || "localhost";
-const port = Number.parseInt(values.port) || process.env.STARLIGHT_PORT || 5901;
+const port = Number.parseInt(values.port) || Number.parseInt(process.env.STARLIGHT_PORT) || 5901;
 await emitter.connect(nostrUrl, sessionId);
 
 console.log(`✨ [Starlight] Connected to ${nostrUrl} with session ID: ${sessionId}`);
