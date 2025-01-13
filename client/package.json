@@ -9,7 +9,7 @@
     "docs/API.md",
     "docs/LIBRARY.md",
     "docs/LICENSE*",
-    "core/**",
+    "lib/**",
     "vendor/**"
   ],
   "scripts": {
