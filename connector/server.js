@@ -2,7 +2,7 @@ import { Socket } from "node:net";
 import { parseArgs } from "node:util";
 import NostrEmitter from "@cmdcode/nostr-emitter";
 import { PeersocketServer } from "peersocket-server/server.js";
-const NOSTR_DEFAULT = "wss://nostr.grooveix.com";
+const NOSTR_DEFAULT = "wss://nostr.spaceness.team";
 if (process.argv.includes("--help") || process.argv.includes("-h") || process.argv.includes("help")) {
 	console.log(`
 ✨ Starlight by spaceness
@@ -86,15 +86,15 @@ peersocket.onopen = (peer, sessionId) => {
 	});
 };
 
-peersocket.onmessage = (peer, message, sessionId, details) => {
+peersocket.onmessage = (_peer, message, sessionId, _details) => {
 	socketMap[sessionId].write(message);
 };
 
-peersocket.onerror = (peer, error, sessionId) => {
+peersocket.onerror = (_peer, error, sessionId) => {
 	console.error(`Error from ${sessionId}: ${error}`);
 };
 
-peersocket.onclose = (peer, sessionId) => {
+peersocket.onclose = (_peer, sessionId) => {
 	console.log(`Peer ${sessionId} disconnected`);
 	socketMap[sessionId].end();
 };
